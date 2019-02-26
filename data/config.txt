@@ -1,0 +1,18 @@
+section Window
+{
+    window_name   Vulkan_Demo
+
+    window_width  500
+    window_height 500
+}
+
+section Log
+{
+    #Log Levels Explained:
+    # 0 Debug and above
+    # 1 Info and above
+    # 2 Error and above
+    # 3 Fatal and above
+    # 4 Special Only
+    log_level 2
+}
