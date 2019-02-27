@@ -21,7 +21,7 @@ namespace Util
 
     //Functions
     public:
-        static bool init(unsigned int log_level);
+        static void init(unsigned int log_level);
         static void uninit(void);
 
         static void setLevel(LogLevel level);

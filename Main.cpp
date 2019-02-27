@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #include <stdarg.h>
 #include <stdio.h>
@@ -13,6 +14,9 @@ using namespace Main;
 
 static bool    stayALive = true;
 static VkCore* vkCore    = NULL;
+
+static std::chrono::high_resolution_clock::time_point lastClock;
+static std::chrono::high_resolution_clock::time_point currentClock;
 
 int main(int argc, char** argv)
 {
@@ -50,7 +54,9 @@ void Main::runLoop(void)
 {
     while(stayALive == true)
     {
-
+        currentClock = std::chrono::high_resolution_clock::now();
+        vkCore->update(std::chrono::duration_cast<std::chrono::duration<float>>(currentClock - lastClock).count());
+        lastClock = currentClock;
     }
 }
 

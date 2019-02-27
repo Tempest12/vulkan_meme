@@ -26,15 +26,15 @@ static const char* errorPrefix   = "          EROR           : ";
 static const char* fatalPrefix   = "               FATL      : ";
 static const char* specialPrefix = "                    SPCL : ";
 
-bool Log::init(unsigned int level)
+void Log::init(unsigned int level)
 {
     currentLevel = level;
 
-    file = fopen("log.txt", "w");
+    file = fopen("log.txt", "w+");
 
     if(file == NULL)
     {
-        return false;
+        Main::die("Unable to open log file for writing.");
     }
     else
     {
@@ -42,7 +42,7 @@ bool Log::init(unsigned int level)
         writeMessage("Log ", "Opened.", emptyList);
     }
 
-    return true;
+    fflush(file);
 }
 
 void Log::setLevel(LogLevel nextLevel)
@@ -73,6 +73,8 @@ void Log::writeError(const char* message, ...)
         writeMessage(errorPrefix, message, argList);
     }
 
+    fflush(file);
+
     va_end(argList);
 }
 
@@ -85,6 +87,8 @@ void Log::writeFatal(const char* message, ...)
     {
         writeMessage(fatalPrefix, message, argList);
     }
+
+    fflush(file);
 
     va_end(argList);
 }
